@@ -1,24 +1,24 @@
 let exphbs = require('express-handlebars');
 let bodyParser = require('body-parser');
-// let regFunction = require("./reg");
+let waiters = require("./waiters");
 const flash = require('express-flash');
 const session = require('express-session');
 const express = require('express');
 const app = express();
 // const routes = require("./routes/regRoutes");
 
-// const connectionString = process.env.DATABASE_URL || 'postgresql://codex:pg123@localhost:5432/registration';
+const connectionString = process.env.DATABASE_URL || 'postgresql://codex:pg123@localhost:5432/waiters';
 
-// const { Pool } = require('pg');
+const { Pool } = require('pg');
 
-// const pool = new Pool({
-//   connectionString,
-//   ssl: {
-//     rejectUnauthorized: false
-//   }
-//});
+const pool = new Pool({
+  connectionString,
+  ssl: {
+    rejectUnauthorized: false
+  }
+});
 
-// let reg = regFunction(pool);
+let waiter = waiters(pool);
 // const route = routes(reg);
 
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
@@ -42,15 +42,44 @@ app.use(express.static('public'));
 // initialise the flash middleware
 app.use(flash());
 
-app.get('/', function(req, res) {
-	res.render('index', {
-		// total: pizza.getTotal(),
-	});
+app.get('/', function (req, res) {
+  res.render('login');
 });
 
- 
+app.post('/', async function (req, res) {
+  try {
+    //  const waiterName = req.params.username;
+    console.log('sdfghjkl    ' + req.body.username)
+    console.log('zxcvbnmxcvb   ' + req.body.login)
+    const submit = req.body.login
+    const user = req.body.username
+    // console.log('sdfghjkl    ' + req.params.username)
+    await waiter.storeNames(req.body.username);
+    
+    res.render('login', {
+      name: user
+    })
+
+  } catch (error) {
+    console.log(error);
+  }
+
+});
+
+app.post('/waiter', function (req, res){
+
+  console.log('sdfghjkl    ' + req.body.day)
+})
+
+app.get('/waiter/:username', async function (req, res) {
+  res.render('waiterdays',{
+    name:req.params.username,
+  })
+});
+
+
 let PORT = process.env.PORT || 3019;
 
 app.listen(PORT, function () {
   console.log('App starting on port', PORT);
-});
+});  
