@@ -17,7 +17,7 @@ module.exports = function waiter(pool) {
     var storeNames = async (name) => {
         try {
             var checkWaiter = await pool.query(`select waiterusername from waiter_usernames where waiterusername = $1`, [name])
-            if (checkWaiter.rowCount == 0) {
+            if (checkWaiter.rowCount == 0 && name != '') {
                 await pool.query(`insert into waiter_usernames(waiterusername) values ($1)`, [name])
             }
           

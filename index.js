@@ -48,35 +48,51 @@ app.get('/', function (req, res) {
 
 app.post('/', async function (req, res) {
   try {
-    //  const waiterName = req.params.username;
+  
     console.log('sdfghjkl    ' + req.body.username)
     console.log('zxcvbnmxcvb   ' + req.body.login)
     const submit = req.body.login
     const user = req.body.username
-    // console.log('sdfghjkl    ' + req.params.username)
+
+    if (!user) {
+      req.flash('info', 'Please enter username');
+    }
+
     await waiter.storeNames(req.body.username);
-    
+
     res.render('login', {
       name: user
     })
 
   } catch (error) {
     console.log(error);
-  }
+  } 
 
 });
-
-app.post('/waiter', function (req, res){
-
-  console.log('sdfghjkl    ' + req.body.day)
-})
 
 app.get('/waiter/:username', async function (req, res) {
-  res.render('waiterdays',{
-    name:req.params.username,
-  })
+  try {
+    res.render('selectdays',{
+      user: req.params.username
+    })
+  } catch (error) {
+    console.log(error);
+  }
 });
 
+app.post('/waiter', function (req, res) {
+  console.log('sdfghjkl    ' + req.body.day)
+  console.log('sdfghjkl    ' + req.body.addDays)
+  const day = req.body.day
+
+  // res.render('selectdays')
+
+  // if (day == undefined) {
+
+  //   req.flash('info', 'Please select days');
+  // }
+
+})
 
 let PORT = process.env.PORT || 3019;
 
