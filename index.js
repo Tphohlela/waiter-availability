@@ -80,17 +80,17 @@ app.get('/waiter/:username', async function (req, res) {
   }
 });
 
-app.post('/waiter', function (req, res) {
+app.post('/waiter/:username', function (req, res) {
   console.log('sdfghjkl    ' + req.body.day)
   console.log('sdfghjkl    ' + req.body.addDays)
   const day = req.body.day
 
   // res.render('selectdays')
 
-  // if (day == undefined) {
+  if (day == undefined) {
 
-  //   req.flash('info', 'Please select days');
-  // }
+    req.flash('info', 'Please select days');
+  }
 
 })
 
