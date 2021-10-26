@@ -70,29 +70,33 @@ app.post('/', async function (req, res) {
 
 });
 
-app.get('/waiter/:username', async function (req, res) {
-  try {
+app.get('/waiter/:username',  function (req, res) {
+
     res.render('selectdays',{
       user: req.params.username
     })
-  } catch (error) {
-    console.log(error);
-  }
+ 
 });
 
 app.post('/waiter/:username', function (req, res) {
+  console.log('sdfghjkl    ' + req.params.username)
   console.log('sdfghjkl    ' + req.body.day)
   console.log('sdfghjkl    ' + req.body.addDays)
   const day = req.body.day
 
-  // res.render('selectdays')
-
-  if (day == undefined) {
-
-    req.flash('info', 'Please select days');
+  if(day == undefined){
+    req.flash('info','Please select the days you are available to work')
   }
 
-})
+  else if(day.length > 3){
+    req.flash('info','Please select a maximum of 3 days')
+  }
+
+  res.render('selectdays',{
+    user: req.params.username
+  })
+
+  })
 
 let PORT = process.env.PORT || 3019;
 

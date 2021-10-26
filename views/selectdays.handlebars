@@ -11,8 +11,8 @@
 <body>
     <div class="container">
 
-        <div class="row align-items-start align-items-center mb-3 mt-3">
-            <div class="col-sm-8 "><img class="shopLogo" src="coffee-shop.jpg"></div>
+        <div class="d-flex flex-row-reverse mb-3 mt-3">
+            
             <div class="col-sm-4 fs-2">Waiter Availability</div>
         </div>
 
@@ -33,7 +33,7 @@
 
                 <div class="col-12 fs-5">
 
-                    <form action="/waiter/:username" method="post">
+                    <form action="/waiter/{{user}}" method="post">
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" name="day" value="Monday"
                                 id="flexCheckDefault" name="day">
