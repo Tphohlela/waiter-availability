@@ -15,3 +15,10 @@ create table waiter_usernames (
 id serial primary key,
 waiterusername text not null
  );
+
+create table admin(userid integer, dayid integer);
+
+-- SELECT id
+-- FROM waiter_username
+-- INNER JOIN admin
+-- ON waiter_usernames.id = admin.id;

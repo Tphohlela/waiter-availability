@@ -78,23 +78,22 @@ app.get('/waiter/:username',  function (req, res) {
  
 });
 
-app.post('/waiter/:username', function (req, res) {
+app.post('/waiter/:username', async function (req, res) {
   console.log('sdfghjkl    ' + req.params.username)
   console.log('sdfghjkl    ' + req.body.day)
   console.log('sdfghjkl    ' + req.body.addDays)
+  const name = req.params.username
   const day = req.body.day
 
   if(day == undefined){
     req.flash('info','Please select the days you are available to work')
   }
 
-  else if(day.length > 3){
-    req.flash('info','Please select a maximum of 3 days')
-  }
-
   res.render('selectdays',{
-    user: req.params.username
+    user: name
   })
+
+  await waiter.storeNameAndDays(name,day);
 
   })
 
