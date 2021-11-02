@@ -9,7 +9,6 @@ module.exports = (pool) => {
             if (checkWaiter.rowCount == 0 && name != '') {
                 await pool.query(`insert into waiter_usernames(waiterusername) values ($1)`, [name])
             }
-
         } catch (error) {
             console.log(error)
         }
@@ -27,9 +26,9 @@ module.exports = (pool) => {
                 }
             }
             return days;
-            
+
         } catch (error) {
-          console.log(error)  
+            console.log(error)
         }
     }
 
@@ -73,7 +72,6 @@ module.exports = (pool) => {
                     await pool.query(`insert into admin (userid,dayid) values ($1,$2)`, [user, days[i]])
                 }
             }
-
         } catch (error) {
             console.log(error)
         }
@@ -82,24 +80,18 @@ module.exports = (pool) => {
     var bookings = async () => {
         try {
             let x = await pool.query('select count(userid),dayid from admin group by dayid');
-            // return x.rows;
-      
+
             x.rows.forEach(async function (element) {
-                // var result = await pool.query(`select dayid from admin where count(userid) > 3`);
-                // list.push(element.dayid)
-                if(element.count > 3){
+                if (element.count > 3) {
                     full.push(element.dayid);
                 }
-
-                else if(element.count == 3){
+                else if (element.count == 3) {
                     ok.push(element.dayid);
                 }
-
-                else if(element.count < 3){
+                else if (element.count < 3) {
                     low.push(element.dayid);
                 }
             })
-          
         } catch (error) {
             console.log(error);
         }

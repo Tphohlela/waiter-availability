@@ -94,7 +94,21 @@ app.post('/waiter/:username', async function (req, res) {
   })
 
   await waiter.storeNameAndDays(name,day);
+  await waiter.bookings();
 
+  console.log('llldfghjk,l. ' + await waiter.perfectlyBooked())
+
+  })
+
+  app.get('/owner',async function(req, res){
+    res.render('owner',{
+     over: await waiter.overBooked(),
+     perfect : await waiter.perfectlyBooked(),
+     under: await waiter.underBooked(),
+     noPerfect: await waiter.perfectlyBooked() == '',
+     noOver : await waiter.overBooked() == '',
+     noUnder : await waiter.underBooked() == ''
+    })
   })
 
 let PORT = process.env.PORT || 3019;

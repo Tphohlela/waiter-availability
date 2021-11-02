@@ -15,9 +15,7 @@
     width: 95px;
 }
 
-.error{
-    color: red;
-    font-weight: bold;
-    font-size: 20px;
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
-    }
+.warning{
+    color: orange; 
+}
+
