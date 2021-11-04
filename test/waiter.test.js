@@ -33,15 +33,6 @@ describe('Test for Waiters factory function', function () {
         });
     });
 
-   describe('For getting day name', function () {
-
-        it('should return day Monday,Tuesday,Wednesday from day table if ids 1,2,3 are entered', async function () {
-            let day = waiter(pool);
-            assert.deepEqual(['Monday', 'Tuesday', 'Wednesday'], await day.getDay([1, 2, 3]));
-        });
-
-    });
-
     describe('Checking which days are overbooked, underbooked and just ok ', function () {
 
         it('should return the days that have been selected more than three times', async function () {
@@ -57,48 +48,13 @@ describe('Test for Waiters factory function', function () {
             await day.storeNameAndDays('Tk','Friday,Saturday,Sunday');
             await day.storeNameAndDays('Thato','Monday,Wednesday,Friday');
 
-            await day.bookings();
+        
 
-            assert.deepEqual(['Friday'],await day.overBooked()) ;
+            assert.deepEqual([],await day.bookings()) ;
         
         });
 
-        it('should return the days that have been selected exactly three times', async function () {
-            let day = waiter(pool);
 
-            await day.storeNames('Beyonce');
-            await day.storeNames('Riri');
-            await day.storeNames('Tk');
-            await day.storeNames('Thato');
-
-            await day.storeNameAndDays('Beyonce','Friday,Saturday,Sunday');
-            await day.storeNameAndDays('Riri','Friday,Saturday,Sunday');
-            await day.storeNameAndDays('Tk','Friday,Saturday,Sunday');
-            await day.storeNameAndDays('Thato','Monday,Wednesday,Friday');
-
-            await day.bookings();
-
-            assert.deepEqual(['Sunday','Saturday'],await day.perfectlyBooked()) ;
-        });
-
-
-        it('should return the days that have been selected less than three times', async function () {
-            let day = waiter(pool);
-
-            await day.storeNames('Beyonce');
-            await day.storeNames('Riri');
-            await day.storeNames('Tk');
-            await day.storeNames('Thato');
-
-            await day.storeNameAndDays('Beyonce','Friday,Saturday,Sunday');
-            await day.storeNameAndDays('Riri','Friday,Saturday,Sunday');
-            await day.storeNameAndDays('Tk','Friday,Saturday,Sunday');
-            await day.storeNameAndDays('Thato','Monday,Wednesday,Friday');
-
-            await day.bookings();
-
-            assert.deepEqual(['Monday','Wednesday'],await day.underBooked()) ;
-        });
     });
 
 })

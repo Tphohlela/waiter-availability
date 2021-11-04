@@ -54,11 +54,20 @@ app.post('/', async function (req, res) {
     const submit = req.body.login
     const user = req.body.username
 
+    await waiter.storeNames(req.body.username);
+
     if (!user) {
       req.flash('info', 'Please enter username');
     }
 
-    await waiter.storeNames(req.body.username);
+    else if(user == 'owner'){
+      res.redirect('/owner')
+    }
+
+    else{
+      res.redirect('/waiter/' + user)
+    }
+
 
     res.render('login', {
       name: user
@@ -89,6 +98,10 @@ app.post('/waiter/:username', async function (req, res) {
     req.flash('info','Please select the days you are available to work')
   }
 
+  else{
+    req.flash('good','You have successfully added your days')
+  }
+
   res.render('selectdays',{
     user: name
   })
@@ -96,19 +109,12 @@ app.post('/waiter/:username', async function (req, res) {
   await waiter.storeNameAndDays(name,day);
   await waiter.bookings();
 
-  console.log('llldfghjk,l. ' + await waiter.perfectlyBooked())
+  // console.log('llldfghjk,l. ' + JSON.stringify(await waiter.underBooked()))
 
   })
 
   app.get('/owner',async function(req, res){
-    res.render('owner',{
-     over: await waiter.overBooked(),
-     perfect : await waiter.perfectlyBooked(),
-     under: await waiter.underBooked(),
-     noPerfect: await waiter.perfectlyBooked() == '',
-     noOver : await waiter.overBooked() == '',
-     noUnder : await waiter.underBooked() == ''
-    })
+    res.render('owner')
   })
 
 let PORT = process.env.PORT || 3019;

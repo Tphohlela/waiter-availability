@@ -19,9 +19,7 @@
 
         <div class="d-flex flex-column align-items-center my-custom-row">
 
-            <div class="entry error">
-                <td> {{messages.info}}</td>
-            </div>
+
             <div class="row mb-3 mt-3  ">
                 <div class="col fs-2">Welcome</div>
             </div>
@@ -30,40 +28,41 @@
                 <div class="col-12 fs-3">Here is your staff's availability schedule</div>
             </div>
 
-            <div class="row mb-3 text-danger fs-5">
-                {{#if noOver}}
-                <td>Days that are overbooked: There are currently no days that match</td>
-                {{else}}
-                <td class="danger">Days that are overbooked:</td>
-                {{#each over}}
-                <td class=" col-12">{{this}}</td>
-                {{/each}}
-                {{/if}}
+            <div class="">
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Monday</th>
+                            <th scope="col">Tuesday</th>
+                            <th scope="col">Wednesday</th>
+                            <th scope="col">Thursday</th>
+                            <th scope="col">Friday</th>
+                            <th scope="col">Saturday</th>
+                            <th scope="col">Sunday</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{!-- <tr>
+                            <th scope="row">1</th>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>Jacob</td>
+                            <td>Thornton</td>
+                            <td>@fat</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>Larry</td>
+                            <td>the Bird</td>
+                            <td>@twitter</td>
+                        </tr> --}}
+                    </tbody>
+                </table>
             </div>
-
-            <div class="row mb-3 text-success fs-5">
-                {{#if noPerfect}}
-                <td>Days that are booked exactly 3 times: There are currently no days that match</td>
-                {{else}}
-                <td >Days that are booked exactly 3 times:</td>
-                {{#each perfect}}
-                <td class="col-12 ">{{this}}</td>
-                {{/each}}
-                {{/if}}
-            </div>
-
-            <div class="row mb-3 warning fs-5">
-                {{#if noUnder}}
-                <td>Days that are under booked: There are currently no days that match</td>
-                {{else}}
-                <td class="">Days that are underbooked:</td>
-                {{#each under}}
-                <td class="col-12 ">{{this}}</td>
-                {{/each}}
-
-                {{/if}}
-            </div>
-
 
             <div class="row mb-3">
                 <a href="/"><button class="btn btn-primary" name="logout" type="submit" value="submit">
@@ -71,15 +70,11 @@
                     </button></a>
             </div>
 
-
-
-
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"
         integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s"
         crossorigin="anonymous"></script>
-
 </body>
 
 </html>
